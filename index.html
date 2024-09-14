@@ -1,19 +1,45 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
-  <title>MyBookReadList</title>
-</head>
-<body>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>MyBookReadList</title>
+  </head>
+  <body>
     <div class="container">
-      <h1>MyBookReadingList.com</h1>
+
+    <h1>My Book Read List</h1>
+    <button class="addBtn">Add Book</button>
+
+
+    <div class="bookShelf">
 
     </div>
 
+    <div class="modal hidden">
+      <form action="#">
+        <h3>Give me some details about the book:</h1>
+        <label for="name">Name</label>
+        <input class="name" type="text" /><br />
+
+        <label for="author">Author</label>
+        <input class="author" type="text" /><br />
+        <label for="pages">Pages</label>
+        <input class="pages" type="number" /><br />
+        <label for="isRead">Have you read it?</label><br />
+
+        <input class="isread" type="radio" name="isread" value="yes" />
+        <label for="yes">Yes</label>
+        <input type="radio" class="isread" name="isread" value="no" />
+        <label for="no">No</label><br />
+
+        <button class="submit">Done!</button>
+        <button class="exit" onclick="closebook()">X</button>
+      </form>
+
+    </div>
+    </div>
     <script src="./script.js"></script>
-</body>
+  </body>
 </html>

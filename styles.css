@@ -1,0 +1,61 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  background-color: lightcyan;
+}
+
+.container {
+  margin: 1rem;
+}
+
+.modal {
+  background-color: white;
+  font-size: 1.4rem;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid black;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hidden {
+  display: none;
+}
+
+.exit {
+  position: relative;
+  bottom: 0px;
+  left: 180px;
+}
+
+.bookShelf {
+  display: grid;
+  /* height: 80%; */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  /* grid-template-rows: auto-fit; */
+  gap: 20px;
+}
+
+.book {
+  height: 350px;
+  padding: 30px;
+  background-color: lightcoral;
+  color: black;
+  font-size: 1.2rem;
+}
+
+.listTitle {
+  font-size: 1rem;
+  color: white;
+}
+
+.listElements {
+  font-size: 1rem;
+}
