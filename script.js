@@ -34,25 +34,29 @@ myLibrary.push(book4);
 
 // TODO: Create Book Object prototype function
 Book.prototype.createBook = function () {
+  // could done easily with .innerHTML but gotta take the hard way
   const div = document.createElement("div");
-  const h1 = document.createElement("h1");
+  const h1 = document.createElement("h3");
 
-  h1.append("Book Details");
-  div.append(h1);
+  h1.append(this.name);
 
-  const p = document.createElement("p");
-  p.append("Name : " + this.name);
   const p1 = document.createElement("p");
   p1.append("Author : " + this.author);
   const p2 = document.createElement("p");
   p2.append("Pages : " + this.pages);
   const p3 = document.createElement("p");
   p3.append("Have Read : " + this.isRead);
-  div.append(p, p1, p2, p3);
+
+  const div1 = document.createElement("div");
+  div1.append(h1, p1, p2, p3);
+
+  div.append(div1);
   div.classList.add("book");
 
   div.setAttribute("data-set", `${i}`);
   i = i + 1;
+
+  const div2 = document.createElement("div");
 
   const deleteBtn = document.createElement("button");
   deleteBtn.classList.add("delete");
@@ -64,8 +68,10 @@ Book.prototype.createBook = function () {
   statusBtn.classList.add("buttons");
   statusBtn.classList.add(this.isRead === "yes" ? "not-read" : "read");
 
-  div.append(deleteBtn);
-  div.append(statusBtn);
+  div2.append(deleteBtn);
+  div2.append(statusBtn);
+
+  div.append(div2);
   bookShelf.append(div);
 
   // Event Listeners
