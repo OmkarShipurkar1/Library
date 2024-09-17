@@ -1,117 +1,150 @@
 // Variables
-
-// Buttons
-const addBtn = document.querySelector(".addBtn");
-const exitBtn = document.querySelector(".exit");
-const submit = document.querySelector(".submit");
-
-// userInputs
-const names = document.querySelector(".name");
-const author = document.querySelector(".author");
-const pages = document.querySelector(".pages");
-const isread = document.querySelector(".isread");
-
-// ELements
-const modal = document.querySelector(".modal");
 const bookShelf = document.querySelector(".bookShelf");
 
+// Array to store the BOOK object
 let myLibrary = [];
+let i = 0;
 
-function Book(name, author, pages, isread) {
+// TODO: BOOK Object
+function Book(name, author, pages, isRead) {
   this.name = name;
   this.author = author;
   this.pages = pages;
-  this.isread = isread;
+  this.isRead = isRead;
 
   this.showDetails = function () {
-    console.log(`Name : ${name}
-                  Author: ${author}
-                  Pages: ${pages}
-                  Have Read: ${isread}`);
+    console.log(`Name: ${this.name}`);
+    console.log(`Author: ${this.author}`);
+    console.log(`Pages: ${this.pages}`);
+    console.log(`Have Read: ${this.isRead}`);
   };
 }
 
-const book1 = new Book(
-  "Harry Potter Chamber of Secrets",
-  "J.K.Rowling",
-  400,
-  "true"
-);
+// Manual Dummy Book Data
+const book1 = new Book("Harry Potter", "J.K.Rowling", 1000, "yes");
+const book2 = new Book("To kill a mockingbird", "harper lee", 350, "no");
+const book3 = new Book("Pride and prejudice", "jane austen", 500, "yes");
+const book4 = new Book("Great Gatsby", "F.Fitzgerald", 400, "yes");
 
-const book2 = new Book("To kill a mocking bird", "Harper Lee", 250, "no");
-const book3 = new Book("Norwegian Wood", "Haruki Murakami", 600, "yes");
-const book4 = new Book("Great Gatsby", "J.Fitzgerald", 250, "no");
-
+// Adding the Manual Entries to the myLibrary Array
 myLibrary.push(book1);
 myLibrary.push(book2);
 myLibrary.push(book3);
 myLibrary.push(book4);
 
-addBtn.addEventListener("click", () => {
-  document.querySelector(".modal").classList.remove("hidden");
-});
+// TODO: Create Book Object prototype function
+Book.prototype.createBook = function () {
+  const div = document.createElement("div");
+  const h1 = document.createElement("h1");
 
-function closebook() {
-  document.querySelector(".modal").classList.add("hidden");
-}
-
-function addBookToLibrary(Book) {
-  myLibrary.push(Book);
-}
-
-// Display the book to the website
-
-function createBook(name, author, pages, hasread) {
-  const book = document.createElement("div");
-  book.classList.add("book");
-
-  const h1 = document.createElement("h2");
   h1.append("Book Details");
-  book.append(h1);
+  div.append(h1);
 
-  const args = [...arguments];
-  const titles = ["Name", "Author", "Pages", "Have Read?"];
+  const p = document.createElement("p");
+  p.append("Name : " + this.name);
+  const p1 = document.createElement("p");
+  p1.append("Author : " + this.author);
+  const p2 = document.createElement("p");
+  p2.append("Pages : " + this.pages);
+  const p3 = document.createElement("p");
+  p3.append("Have Read : " + this.isRead);
+  div.append(p, p1, p2, p3);
+  div.classList.add("book");
 
-  for (let i = 0; i < args.length; i++) {
-    const p = document.createElement("p");
-    p.append(titles[i] + " : ");
+  div.setAttribute("data-set", `${i}`);
+  i = i + 1;
 
-    const span = document.createElement("span");
-    span.classList.add("listTitle");
-    span.append(args[i]);
-    p.append(span);
-    book.append(p);
-  }
+  const deleteBtn = document.createElement("button");
+  deleteBtn.classList.add("delete");
+  deleteBtn.classList.add("buttons");
+  deleteBtn.append("Remove");
 
-  return book;
-}
+  const statusBtn = document.createElement("button");
+  statusBtn.innerHTML = this.isRead === "yes" ? "Not Read" : "Read";
+  statusBtn.classList.add("buttons");
+  statusBtn.classList.add(this.isRead === "yes" ? "not-read" : "read");
 
-// Manually Displaying the Book Objects from the Array to the Website
-myLibrary.forEach((book) => {
-  const BookToDisplay = createBook(
-    book.name,
-    book.author,
-    book.pages,
-    book.isread
-  );
-  bookShelf.append(BookToDisplay);
-});
+  div.append(deleteBtn);
+  div.append(statusBtn);
+  bookShelf.append(div);
 
-// Storing the User INput in the BOOK Object
-submit.addEventListener("click", () => {
-  const BookToDisplay = createBook(
-    names.value,
-    author.value,
-    pages.value,
-    isread.value
-  );
-  bookShelf.append(BookToDisplay);
-});
+  // Event Listeners
 
-// Erasing of form after taking user input
-function eraseContents() {
+  deleteBtn.addEventListener("click", () => {
+    bookShelf.removeChild(div);
+  });
+
+  statusBtn.addEventListener("click", () => {
+    if (statusBtn.innerHTML === "Read") {
+      statusBtn.innerHTML = "Not Read";
+      statusBtn.classList.toggle("read");
+      statusBtn.classList.toggle("not-read");
+      p3.innerHTML = "Have Read : yes";
+    } else {
+      statusBtn.innerHTML = "Read";
+      statusBtn.classList.toggle("read");
+      statusBtn.classList.toggle("not-read");
+      p3.innerHTML = "Have Read : no";
+    }
+  });
+};
+
+// Clear The User iNput
+function clear() {
   names.value = "";
   author.value = "";
   pages.value = "";
-  isread.value = "";
+  isRead = "";
+  noBtn.checked = false;
+  yesBtn.checked = false;
 }
+
+const dialog = document.querySelector("dialog");
+document.querySelector(".addBtn").addEventListener("click", () => {
+  dialog.showModal();
+});
+
+document.querySelector(".close").addEventListener("click", () => {
+  dialog.closeModal();
+});
+
+// TODO: Inserting user data in Book Object
+
+// user input variables
+const names = document.querySelector(".name");
+const author = document.querySelector(".author");
+const pages = document.querySelector(".pages");
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+
+document.querySelector(".take").addEventListener("click", (event) => {
+  let isRead = noBtn.checked ? "no" : "yes";
+  if (names.value && author.value && pages.value) {
+    const bookx = new Book(names.value, author.value, pages.value, isRead);
+    myLibrary.push(bookx);
+    bookx.createBook();
+    clear();
+    dialog.closeModal();
+    event.preventDefault();
+  }
+});
+
+// Function to display all books
+function displayAllBooks() {
+  for (let i = 0; i < myLibrary.length; i++) {
+    myLibrary[i].createBook();
+  }
+}
+
+displayAllBooks();
+
+// Really wasted my 4 hours on this code  but got result only by adding 2 lines in the above code :(
+
+// for (let i = 0; i < myLibrary.length; i++) {
+//   deleteBtns[i].addEventListener("click", () => {
+//     let bookEl = document.querySelector(`.book[data-index="${i + 1}"]`);
+//     console.log(bookEl);
+//     console.log(i);
+//     bookShelf.removeChild(bookEl);
+//   });
+// }

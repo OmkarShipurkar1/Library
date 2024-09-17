@@ -7,39 +7,42 @@
     <title>MyBookReadList</title>
   </head>
   <body>
-    <div class="container">
 
     <h1>My Book Read List</h1>
-    <button class="addBtn">Add Book</button>
+    <button class="addBtn" onclick="dialog.showModal()">Add Book</button>
 
 
     <div class="bookShelf">
 
     </div>
 
-    <div class="modal hidden">
-      <form action="#">
+    <!-- <div class="modal hidden"> -->
+    <dialog class="myDialog">
+
+
+      <form method="dialog">
         <h3>Give me some details about the book:</h1>
         <label for="name">Name</label>
-        <input class="name" type="text" /><br />
+        <input class="name" name="name" type="text" /><br />
 
         <label for="author">Author</label>
-        <input class="author" type="text" /><br />
+        <input class="author" name="author" type="text" /><br />
         <label for="pages">Pages</label>
-        <input class="pages" type="number" /><br />
+        <input class="pages" name="pages" type="number" /><br />
         <label for="isRead">Have you read it?</label><br />
 
-        <input class="isread" type="radio" name="isread" value="yes" />
+
+        <input class="isread" type="radio" id="yes" name="isread" value="yes" />
         <label for="yes">Yes</label>
-        <input type="radio" class="isread" name="isread" value="no" />
+        <input type="radio" class="isread" id="no" name="isread" value="no" />
         <label for="no">No</label><br />
 
-        <button class="submit">Done!</button>
-        <button class="exit" onclick="closebook()">X</button>
+        <button class="take">Done!</button>
+        <button class="close" onclick="dialog.close()">X</button>
       </form>
-
-    </div>
-    </div>
+      
+    </dialog>
+    <!-- </div> -->
     <script src="./script.js"></script>
   </body>
 </html>
