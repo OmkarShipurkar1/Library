@@ -6,18 +6,21 @@ let myLibrary = [];
 let i = 0;
 
 // TODO: BOOK Object
-function Book(name, author, pages, isRead) {
-  this.name = name;
-  this.author = author;
-  this.pages = pages;
-  this.isRead = isRead;
+// Class Refactor
+class Book {
+  constructor(name, author, pages, isRead) {
+    this.name = name;
+    this.author = author;
+    this.pages = pages;
+    this.isRead = isRead;
+  }
 
-  this.showDetails = function () {
+  showDetails() {
     console.log(`Name: ${this.name}`);
     console.log(`Author: ${this.author}`);
     console.log(`Pages: ${this.pages}`);
     console.log(`Have Read: ${this.isRead}`);
-  };
+  }
 }
 
 // Manual Dummy Book Data
